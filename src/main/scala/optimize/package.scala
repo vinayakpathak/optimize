@@ -1,0 +1,1 @@
+package object optimize extends HasNeighboursInstances
