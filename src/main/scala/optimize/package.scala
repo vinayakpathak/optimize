@@ -1,1 +1,1 @@
-package object optimize extends HasNeighboursInstances
+package object optimize extends HasNeighboursInstances with HasNeighboursSyntax

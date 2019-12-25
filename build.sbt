@@ -20,3 +20,6 @@ libraryDependencies  ++= Seq(
   // It depends on LGPL code
   "org.scalanlp" %% "breeze-viz" % "1.0"
 )
+
+libraryDependencies += "co.fs2" %% "fs2-core" % "2.1.0" // For cats 2 and cats-effect 2
+
