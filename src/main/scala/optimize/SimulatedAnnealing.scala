@@ -1,5 +1,8 @@
 package optimize
 
+import java.time.LocalTime
+import java.time.format.DateTimeFormatter
+
 import breeze.linalg.DenseVector
 import breeze.stats.distributions.Multinomial
 
@@ -28,7 +31,12 @@ case class SimulatedAnnealing[T: HasNeighbours](init: T,
 //      val probabilities = DenseVector(ts.map(tp => math.exp(-(obj(tp) - obj(t))/temp)).toArray)
 //      ts(Multinomial(probabilities).draw())
 //    }
-    println(obj(ns))
+    val score = obj(ns)
+    val fn = s"./data/submission_${LocalTime.now.format(DateTimeFormatter.ISO_TIME)}_${score}.csv"
+    println(score)
+    ns.asInstanceOf[FamilyAssignment]
+      .toCsv(fn)
+    println(s"Saving into file $fn")
     ns
   }
 }

@@ -11,7 +11,12 @@ trait HasNeighboursInstances {
           (fa.attendance(fa.assignments(family)) - family.size >= 125) &&
           (fa.attendance(d) + family.size <= 300)
       }
-    } yield FamilyAssignment(fa.assignments + (family -> day), fa.ndays)
+    } yield {
+//      println(s"num of families = ${fa.assignments.size}, num of days = ${fa.ndays}")
+//      println(s"$family, $day")
+//      FamilyAssignment(fa.assignments + (family -> day), fa.ndays)
+      fa.reassign(family.id, day)
+    }
     famass
   }
 }
