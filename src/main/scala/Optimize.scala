@@ -12,7 +12,8 @@ object Optimize extends App {
         family
       }
   source.close()
-  val source1 = io.Source.fromFile("./init.csv")
+  val source1 = io.Source.fromFile("./sample_submission.csv")
+//  val source1 = io.Source.fromFile("./init.csv")
   val initFa = FamilyAssignment(source1.getLines().toList
     .drop(1)
       .map{line =>
@@ -23,9 +24,9 @@ object Optimize extends App {
     100
   )
   source1.close()
-  println(s"pref score = ${initFa.prefScore}, acc score = ${initFa.accScore}")
-//  val res = SimulatedAnnealing[FamilyAssignment](initFa, _.score, 1)
-//    .optimize(1000)
+//  println(s"pref score = ${initFa.prefScore}, acc score = ${initFa.accScore}, total = ${initFa.score}")
+  val res = SimulatedAnnealing[FamilyAssignment](initFa, _.score, 10000000, 200)
+    .optimize
 //  val filename = s"./submission_${LocalTime.now()}.csv"
 //  res.toCsv(filename)
 }

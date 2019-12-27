@@ -39,6 +39,17 @@ trait FamilyAssignment { self =>
       FamilyAssignment.prefScoreForFamily(currentFam, day)
 
     lazy val accScore: Double = {
+      def f(nd: Double, ndPlus1: Double): Double = (nd - 125)/400 * math.pow(nd, 0.5 + math.abs(nd - ndPlus1)/50)
+//      val subTerm1 = if (currentDay == 1) 0 else f(self.attendance(currentDay-1), self.attendance(currentDay))
+//      val subTerm2 = if (currentDay != 100) f(self.attendance(currentDay), self.attendance(currentDay+1)) else f(self.attendance(currentDay), self.attendance(currentDay))
+//      val subTerm3 = if (day == 1) 0 else f(self.attendance(day-1), self.attendance(day))
+//      val subTerm4 = if (day != 100) f(self.attendance(day), self.attendance(day+1)) else f(self.attendance(day), self.attendance(day))
+//      val addTerm1 = if (currentDay == 1) 0 else f(attendance(currentDay-1), attendance(currentDay))
+//      val addTerm2 = if (currentDay != 100) f(attendance(currentDay), attendance(currentDay+1)) else f(attendance(currentDay), attendance(currentDay))
+//      val addTerm3 = if (day == 1) 0 else f(attendance(day-1), attendance(day))
+//      val addTerm4 = if (day != 100) f(attendance(day), attendance(day+1)) else f(attendance(day), attendance(day))
+//      self.accScore - (subTerm1+subTerm2+subTerm3+subTerm4) + (addTerm1+addTerm2+addTerm3+addTerm4)
+
       val att = List.range(1, ndays+1).map(attendance)
       val res = Stream.emits(att)
         .map(_.toDouble)
@@ -47,7 +58,8 @@ trait FamilyAssignment { self =>
         .fold(0.0){case (tot, (ndp, nd, ndn)) =>
           val ndn1 = ndn.getOrElse(nd)
           val ndp1 = ndp.getOrElse(nd)
-          val c = (nd - 125)/400 * math.pow(nd, 0.5 + math.abs(nd - ndn1)/50)
+          val c = f(nd, ndn1)
+//          val c = (nd - 125)/400 * math.pow(nd, 0.5 + math.abs(nd - ndn1)/50)
           tot + c
         }
       res
