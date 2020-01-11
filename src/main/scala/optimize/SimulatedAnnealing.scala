@@ -47,13 +47,13 @@ case class SimulatedAnnealing[T: HasNeighbours](init: T,
 //      ts(Multinomial(probabilities).draw())
 //    }
     val score = obj(ns)
-    val fn = s"./data/submission_${LocalTime.now.format(DateTimeFormatter.ISO_TIME)}_${score}.csv"
+    val fn = s"./data/submission_${score}_${LocalTime.now.format(DateTimeFormatter.ISO_TIME)}.csv"
     println(s"score = $score")
-    if (score < 70000) {
-      ns.asInstanceOf[FamilyAssignment]
-        .toCsv(fn)
-      println(s"Saving into file $fn")
-    }
+//    if (score < 70000) {
+    ns.asInstanceOf[FamilyAssignment]
+      .toCsv(fn)
+    println(s"Saving into file $fn")
+//    }
     ns
   }
 }

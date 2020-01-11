@@ -12,13 +12,14 @@ object Optimize extends App {
         family
       }
   source.close()
-  val source1 = io.Source.fromFile("./sample_submission.csv")
+  println(args.toList)
+  val source1 = io.Source.fromFile(s"./${args.head}")
 //  val source1 = io.Source.fromFile("./init.csv")
   val initFa = FamilyAssignment(source1.getLines().toList
     .drop(1)
       .map{line =>
         val words = line.split(",").map(_.trim)
-        families(words(0).toInt) -> words(1).toInt
+        families(words(0).toDouble.toInt) -> words(1).toDouble.toInt
       }
     .toMap,
     100
